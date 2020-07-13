@@ -17,14 +17,14 @@ describe('/app', () => {
     });
     it('should return a 200 status code if query param is provided', (done) => {
       request(app)
-        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337')}`)
+        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect(200, done);
     });
     it('should return a the requested movie URI in the response body', (done) => {
       request(app)
-        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337')}`)
+        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect((res) => {
-          expect(res.body.movieURI).toEqual('http://localhost:1337');
+          expect(res.body.movieURI).toEqual('http://localhost:1337/content');
         })
         .expect(200, done);
     });

@@ -6,8 +6,9 @@
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "jasmine --config=config/jasmine-unit.json",
-    "test:integration": "jasmine --config=config/jasmine-int.json",
-    "start": "node api/index.js"
+    "test:integration": "concurrently -k -s first \"node integration-tests/mock-integration-server.js\" \"wait-on http://localhost:1337/ &&  jasmine --config=config/jasmine-int.json\"",
+    "start": "node api/index.js",
+    "start:debug": "node --inspect api/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,11 @@
   },
   "homepage": "https://github.com/zimondm/viaplay-trailers#readme",
   "dependencies": {
+    "concurrently": "^5.2.0",
     "express": "^4.17.1",
-    "supertest": "^4.0.2"
+    "node-fetch": "^2.6.0",
+    "supertest": "^4.0.2",
+    "wait-on": "^5.1.0"
   },
   "devDependencies": {
     "jasmine": "^3.5.0"
