@@ -4,7 +4,7 @@
   "description": "tech assignment for NENT (Viaplay)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine --config=config/jasmine.json",
     "start": "node api/index.js"
   },
   "repository": {
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/zimondm/viaplay-trailers#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jasmine": "^3.5.0"
   }
 }
