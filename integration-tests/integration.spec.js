@@ -15,7 +15,7 @@ describe('/app', () => {
     it('should return a 400 status code if query param is omitted', (done) => {
       request(app).get('/trailer').expect(400, done);
     });
-    it('should return a 200 status code if query param is provided', (done) => {
+    it('should return a 200 status code for successful lookups', (done) => {
       request(app)
         .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect(200, done);
@@ -25,6 +25,16 @@ describe('/app', () => {
         .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect((res) => {
           expect(res.body.movieURI).toEqual('http://localhost:1337/content');
+        })
+        .expect(200, done);
+    });
+    it('should return the trailer for successfull requests', (done) => {
+      request(app)
+        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
+        .expect((res) => {
+          expect(res.body.trailer.trailerURI).toEqual(
+            'https://youtube.com/watch?v=ayoutubevideokey'
+          );
         })
         .expect(200, done);
     });

@@ -1,5 +1,5 @@
-const ViaplayContentService = require('./viaplay-content.service');
 const fetchWrapper = require('../fetch/fetch-wrapper');
+const ViaplayContentService = require('./viaplay-content.service');
 
 describe('ViaplayContentService', () => {
   let fetchSpy = null;
@@ -18,10 +18,35 @@ describe('ViaplayContentService', () => {
         new Error(`Missing or incorrect URI`)
       );
     });
-    it('should return a promise', () => {
-      expect(
-        ViaplayContentService.getMovieContent('http://localhost:3000').then
-      ).toBeTruthy();
+    it('should return a promise resolving to the content api response body', async () => {
+      const mockRef = {};
+      fetchSpy.and.returnValue(Promise.resolve({ json: () => mockRef }));
+      const promiseObj = ViaplayContentService.getMovieContent(
+        'http://localhost:3000'
+      );
+      expect(promiseObj.then).toBeTruthy();
+      const result = await promiseObj;
+      expect(result === mockRef).toBeTrue();
+    });
+  });
+  describe('extractImdbContent', () => {
+    it('should return the imdb object from the provided object if it exists', () => {
+      const imdb = { id: 'mockid' };
+      const movieData = {
+        _embedded: {
+          'viaplay:blocks': [
+            {
+              _embedded: {
+                'viaplay:product': { content: { imdb } },
+              },
+            },
+          ],
+        },
+      };
+      expect(ViaplayContentService.extractImdbContent(movieData)).toEqual(imdb);
+    });
+    it('should return null for unsuccesfull lookups', () => {
+      expect(ViaplayContentService.extractImdbContent({})).toEqual(null);
     });
   });
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "jasmine --config=config/jasmine-unit.json",
-    "test:integration": "concurrently -k -s first \"node integration-tests/mock-integration-server.js\" \"wait-on http://localhost:1337/ &&  jasmine --config=config/jasmine-int.json\"",
+    "test:integration": "export NODE_ENV=test; concurrently -k -s first \"node integration-tests/mock-integration-server.js\" \"wait-on http://localhost:1337/ &&  jasmine --config=config/jasmine-int.json\"",
     "start": "node api/index.js",
     "start:debug": "node --inspect api/index.js"
   },
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/zimondm/viaplay-trailers#readme",
   "dependencies": {
     "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "supertest": "^4.0.2",
