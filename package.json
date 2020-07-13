@@ -1,0 +1,23 @@
+{
+  "name": "viaplay-trailers",
+  "version": "1.0.0",
+  "description": "tech assignment for NENT (Viaplay)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zimondm/viaplay-trailers.git"
+  },
+  "author": "zimondm@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zimondm/viaplay-trailers/issues"
+  },
+  "homepage": "https://github.com/zimondm/viaplay-trailers#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
