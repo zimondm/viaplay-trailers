@@ -9,3 +9,6 @@ const port = 3333;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+// Export the app to allow integration tests acquire a reference.
+module.exports = app;
