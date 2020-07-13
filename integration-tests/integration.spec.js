@@ -12,8 +12,21 @@ describe('/app', () => {
   });
   // Organise tests per sub-API and per endpoint
   describe('GET /trailer', () => {
-    it('should return a successful response code for the dummy implementation', (done) => {
-      request(app).get('/trailer').expect(200, done);
+    it('should return a 400 status code if query param is omitted', (done) => {
+      request(app).get('/trailer').expect(400, done);
+    });
+    it('should return a 200 status code if query param is provided', (done) => {
+      request(app)
+        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337')}`)
+        .expect(200, done);
+    });
+    it('should return a the requested movie URI in the response body', (done) => {
+      request(app)
+        .get(`/trailer?movieURI=${encodeURI('http://localhost:1337')}`)
+        .expect((res) => {
+          expect(res.body.movieURI).toEqual('http://localhost:1337');
+        })
+        .expect(200, done);
     });
   });
 });
