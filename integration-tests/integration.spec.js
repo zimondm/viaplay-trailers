@@ -20,7 +20,7 @@ describe('/app', () => {
         .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect(200, done);
     });
-    it('should return a the requested movie URI in the response body', (done) => {
+    it('should return the requested movie URI in the response body', (done) => {
       request(app)
         .get(`/trailer?movieURI=${encodeURI('http://localhost:1337/content')}`)
         .expect((res) => {

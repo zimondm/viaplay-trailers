@@ -10,6 +10,7 @@ function cacheGet(req, res, next) {
   const cacheResult = cacheInstance.get(req.originalUrl);
   if (cacheResult) {
     res.locals.cacheHit = true;
+    res.set('Content-Type', 'application/json');
     res.status(cacheResult.status).send(cacheResult.body);
   } else {
     next();

@@ -8,6 +8,10 @@ function mockRes() {
     this._responseBody = r;
   };
   this.locals = {};
+  this._headers = {};
+  this.set = (key, value) => {
+    this._headers[key] = value;
+  };
 }
 
 module.exports = {

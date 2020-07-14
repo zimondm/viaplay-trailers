@@ -13,6 +13,13 @@ describe('cache', () => {
     cacheSetMock.calls.reset();
   });
   describe('cacheGet', () => {
+    it('should set the content type to application/json on a cacheHit', () => {
+      const req = { originalUrl: '' };
+      const res = new mockRes();
+      cacheGetMock.and.returnValue({ status: 200, body: {} });
+      cacheGet(req, res, () => {});
+      expect(res._headers['Content-Type']).toEqual('application/json');
+    });
     it('should set the cacheHit flag on a cacheHit', () => {
       const req = { originalUrl: '' };
       const res = new mockRes();
