@@ -2,12 +2,16 @@
     Service module used for interacting with the Viaplay Content API
 */
 const fetchWrapper = require('../fetch/fetch-wrapper');
+const url = require('url');
 function getMovieContent(movieURI) {
   if (!movieURI || typeof movieURI !== 'string') {
     throw new Error(`Missing or incorrect URI`);
   }
-  // TODO add whitelist filter to movieURI in the check above
-  return fetchWrapper.fetch(movieURI).then((res) => res.json());
+  const movieURL = url.parse(movieURI);
+  if (movieURL.hostname !== 'content.viaplay.se') {
+    throw new Error(`Missing or incorrect URI`);
+  }
+  return fetchWrapper.fetch(movieURL.href).then((res) => res.json());
 }
 
 function extractImdbContent(movieData) {
