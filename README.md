@@ -7,7 +7,11 @@ The response will contain the requested URI as well as a trailer object containi
 
 The app contains a suite of unit tests displaying a couple of techniques useful when testing different types of middlewares or plain functions, as well as an example of integration tests of the whole app with mocked external dependencies using a separate node app.
 
+Test frameworks used is jasmine. For integration tests superagent is used to mount the app.
+
 To illustrate some more advanced options with regards to scaling the app also contains a simple in-memory cache using the NodeCache package. In a real world application the cache should be performed outside of the app however. The same is true for the included rate limiter implementation.
+
+Code formatting using prettier, tooling using npm scripts and a handful of utility packages.
 
 The project is built under linux and should work on all other platforms, WSL might be required on Windows (untested).
 
@@ -15,6 +19,7 @@ The project is built under linux and should work on all other platforms, WSL mig
 
 - npm i
 - npm test
+- update .env with root url (ending with /, i.e. https://api.themoviedb.org/3/) to tmdb api as well as your tmdb API key
 - npm start
 
 ## debugging
@@ -33,3 +38,13 @@ Security: there's no steps to secure this API apart from a simple rate limiter o
 Performance: this app uses an example in-memory cache using the path (with query params) as key, this cache should be replaced with a proper caching strategy in the hosting environment. A simple improvement on the existing cache is to replace the cache key strategy to only cache relevantly queried URIs instead of all possible responses the API serves. The services integrating with the two external API's also need to properly handle errors from the respective provider.
 
 Suggested additions to the API itself would be to decide if the API should be fully HATEOAS compliant and what implementation to use. Extending the feature set of the single endpoint is also an option, returning all trailers found for a movie, allowing further parameters to request specific resolutions or even supporting different hosting sources.
+
+Expanded test coverage reporting is also recommended, adding nyc for code coverage for example.
+
+# Example request
+
+curl localhost:3333/trailer?movieURI=http://content.viaplay.se/pc-se/film/fargo-1996
+
+Returns:
+
+{"movieURI":"http://content.viaplay.se/pc-se/film/fargo-1996","trailer":{"trailerURI":"https://youtube.com/watch?v=h2tY82z3xXU","name":"Fargo Official Trailer #1 - Steve Buscemi Movie (1996) HD"}}
