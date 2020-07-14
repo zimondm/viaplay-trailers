@@ -8,7 +8,11 @@ function getMovieContent(movieURI) {
     throw new Error(`Missing or incorrect URI`);
   }
   const movieURL = url.parse(movieURI);
-  if (movieURL.hostname !== 'content.viaplay.se') {
+  if (
+    !['content.viaplay.se', 'localhost'].find(
+      (host) => host === movieURL.hostname
+    )
+  ) {
     throw new Error(`Missing or incorrect URI`);
   }
   return fetchWrapper.fetch(movieURL.href).then((res) => res.json());

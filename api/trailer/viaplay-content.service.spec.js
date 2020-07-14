@@ -18,11 +18,16 @@ describe('ViaplayContentService', () => {
         new Error(`Missing or incorrect URI`)
       );
     });
+    it('should throw an error if movieURI hostname is not allowed type', () => {
+      expect(() => ViaplayContentService.getMovieContent('google.com')).toThrow(
+        new Error(`Missing or incorrect URI`)
+      );
+    });
     it('should return a promise resolving to the content api response body', async () => {
       const mockRef = {};
       fetchSpy.and.returnValue(Promise.resolve({ json: () => mockRef }));
       const promiseObj = ViaplayContentService.getMovieContent(
-        'http://localhost:3000'
+        'http://localhost:1337'
       );
       expect(promiseObj.then).toBeTruthy();
       const result = await promiseObj;
