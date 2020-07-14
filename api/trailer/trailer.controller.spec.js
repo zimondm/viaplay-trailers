@@ -1,21 +1,11 @@
 const { getTrailer } = require('./trailer.controller');
 const ViaplayContentService = require('./viaplay-content.service');
 const TMDBService = require('./tmdb.service');
+const { mockRes } = require('../test-helpers/express-mocks');
 /*
     Basic unit tests for a controller resource.
     Mock service layer and req/res/next to assert response behaviour based on basic scenarios.
 */
-
-// Mock object to allow testing of express controller middlewares.
-function mockRes() {
-  this._status = null;
-  this._responseBody = null;
-  this.sendStatus = (s) => (this._status = s);
-  this.status = (s) => (this._status = s) && this;
-  this.send = (r) => {
-    this._responseBody = r;
-  };
-}
 describe('api/trailer/trailer.controller', () => {
   beforeAll(() => {
     spyOn(ViaplayContentService, 'getMovieContent').and.returnValue(

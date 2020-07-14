@@ -24,6 +24,7 @@
     "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "node-cache": "^5.1.2",
     "node-fetch": "^2.6.0",
     "supertest": "^4.0.2",
     "wait-on": "^5.1.0"
